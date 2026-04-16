@@ -1,0 +1,20 @@
+class Singleton {
+
+    // Public string variable
+    public String str;
+
+    // Private static instance of the same class
+    private static Singleton instance;
+
+    // Private constructor (no parameters)
+    private Singleton() {
+    }
+
+    // Static method to return the single instance
+    public static Singleton getSingleInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}

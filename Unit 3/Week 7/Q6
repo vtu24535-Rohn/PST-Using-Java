@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'gradingStudents' function below.
+     *
+     * The function is expected to return a LIST of INTEGER.
+     * The function accepts LIST of INTEGER grades as parameter.
+     */
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int g : grades) {
+            if (g < 38) {
+                result.add(g);
+            } else {
+                int next = ((g / 5) + 1) * 5;
+                if (next - g < 3)
+                    result.add(next);
+                else
+                    result.add(g);
+            }
+        }
+
+        return result;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int gradesCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> grades = IntStream.range(0, gradesCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().trim();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+        .map(String::trim)
+        .map(Integer::parseInt)
+        .collect(toList());
+
+        List<Integer> result = Result.gradingStudents(grades);
+
+        for (int x : result) {
+            System.out.println(x);
+        }
+
+        bufferedReader.close();
+    }
+}
