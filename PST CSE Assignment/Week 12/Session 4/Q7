@@ -1,0 +1,30 @@
+import java.util.*;
+
+class MeetingRooms {
+
+    static int minRooms(int[][] meetings) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+
+        for (int[] m : meetings) {
+            map.put(m[0], map.getOrDefault(m[0], 0) + 1); // start
+            map.put(m[1], map.getOrDefault(m[1], 0) - 1); // end
+        }
+
+        int rooms = 0, maxRooms = 0;
+
+        for (int val : map.values()) {
+            rooms += val;
+            maxRooms = Math.max(maxRooms, rooms);
+        }
+
+        return maxRooms;
+    }
+
+    public static void main(String[] args) {
+        int[][] meetings = {
+            {30, 75}, {0, 50}, {60, 150}
+        };
+
+        System.out.println(minRooms(meetings)); // Output: 2
+    }
+}

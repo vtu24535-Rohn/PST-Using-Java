@@ -1,0 +1,48 @@
+import java.util.*;
+
+class Item {
+    String name;
+    double rating;
+
+    Item(String name, double rating) {
+        this.name = name;
+        this.rating = rating;
+    }
+}
+
+class ItemFilter {
+
+    public static void main(String[] args) {
+        ArrayList<Item> list = new ArrayList<>();
+
+        list.add(new Item("ItemA", 8.8));
+        list.add(new Item("ItemB", 7.5));
+        list.add(new Item("ItemC", 8.6));
+        list.add(new Item("ItemD", 7.9));
+        list.add(new Item("ItemE", 8.4));
+
+        double threshold = 8.0;
+
+        // Filter
+        ArrayList<Item> result = new ArrayList<>();
+        for (Item i : list) {
+            if (i.rating >= threshold) {
+                result.add(i);
+            }
+        }
+
+        // Sort
+        Collections.sort(result, (a, b) -> {
+            if (b.rating != a.rating) {
+                return Double.compare(b.rating, a.rating);
+            }
+            return a.name.compareTo(b.name);
+        });
+
+        // Output
+        for (Item i : result) {
+            System.out.println(i.name);
+            System.out.println(i.rating);
+        }
+    }
+}
