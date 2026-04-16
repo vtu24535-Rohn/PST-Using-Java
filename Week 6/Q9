@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        String s = sc.next();
+
+        for (int k = 0; k < n; k++) {
+            String rotated = s.substring(k) + s.substring(0, k);
+            System.out.println(longestPalindrome(rotated));
+        }
+    }
+
+    static int longestPalindrome(String s) {
+        int maxLen = 1;
+        int n = s.length();
+
+        for (int i = 0; i < n; i++) {
+            int len1 = expand(s, i, i);
+            int len2 = expand(s, i, i + 1);
+            maxLen = Math.max(maxLen, Math.max(len1, len2));
+        }
+
+        return maxLen;
+    }
+
+    static int expand(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+}
